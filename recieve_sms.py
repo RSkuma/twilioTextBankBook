@@ -2,7 +2,11 @@ from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 #import os
 #from twilio.rest import Client
+import dbFunctions
+
+#from dbFunctions import create_server_connection
 app = Flask(__name__)
+
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
@@ -12,6 +16,10 @@ def sms_reply():
 
     # Add a message
     resp.message(request.form["Body"])
+
+    
+    connection=dbFunctions.create_server_connection("localhost", "rskuma", "password")
+
 
     return str(resp)
 
